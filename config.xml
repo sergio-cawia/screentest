@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.phonegap.example"
+        versionCode = "10" 
+        version     = "1.0.0" >
+
+
+    <name>Screen Test</name>
+
+    <description>
+        Test Screen Orientation
+    </description>
+
+    <author href="http://www.cawia.com" email="sergio@cawia.com">
+        Sergio Estrada
+    </author>
+	
+	<preference name= "fullscreen" value= "true" />
+	<preference name="orientation" value="portrait" />
+	
+	<gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" version="1.2.0" />
+	
+	<icon src="icon.png" />
+	
+	
+
+	
+
+</widget>

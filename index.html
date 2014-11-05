@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="shortcut icon" href="favicon.ico">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="mobile.css"/>
+<link rel="stylesheet" href="css/jquery.mobile.structure-1.3.2.min.css" />
+<link rel="stylesheet" href="css/fsa.min.css" />
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<script>var origin='customer';</script>
+<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.maskedinput.js"></script>
+<script type="text/javascript" src="mobile.js"></script>
+<title>Vision Selling System</title>
+</head>
+<body onload="changeHeights();">
+	<div id="diag">testarea</div>
+	<div id="wholepage" data-role="page">
+		<div id="header" data-role="header">
+			<table cellspacing="0" cellpadding="0" border="0">
+				<tr>
+					<td class="logo" onclick="diags();">
+						<img src="images/vision_logo_mobile.png" border="0" height="25"/>
+					</td>
+					<td id="custinfo">
+					</td>
+					<td id="dealicons">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="container" data-role="main" class="ui-content">
+			<div id="modalstartup" class="sqbox tradeouts">
+				<div data-role="header">
+					<h1>VEHICLE PRICE</h1>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div class="fsamodalcontent">
+						<h3 class="ui-title">Starting Price</h3>
+						<input type="number" id="startingproposedprice" name="startingproposedprice" class="numbersonly" value="27000"/>
+					</div>
+					<button onclick="startup();" data-theme="a">START</button>
+				</div>
+			</div>
+			<div id="modalprice" class="sqbox tradeouts">
+				<div data-role="header">
+					<h1>VEHICLE PRICE</h1>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div class="fsamodalcontent">
+						<h3 class="ui-title">I will offer</h3>
+						<input type="number" id="proposedprice" name="proposedprice" class="numbersonly" value=""/>
+					</div>
+					<button onclick="changePricebox();" data-theme="a">SUBMIT</button>
+				</div>
+			</div>
+			<div id="modaldown" class="sqbox tradeouts">
+				<div data-role="header">
+					<h1>DOWN PAYMENT</h1>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div class="fsamodalcontent">
+						<h3 class="ui-title">Change my down payment to</h3>
+						<input type="number" id="proposeddown" name="proposeddown" class="numbersonly"/>
+					</div>
+					<button onclick="changeDownbox();" data-theme="a">SUBMIT</button>
+				</div>
+			</div>
+			<div id="modalpayment" class="sqbox tradeouts">
+				<div data-role="header">
+					<h1>MONTHLY PAYMENT</h1>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div class="fsamodalcontent">
+						<h3 class="ui-title">Change my monthly payment to</h3>
+						<input type="number" id="temppayment" name="temppayment" class="numbersonly"/>
+					</div>
+					<button onclick="changePayment( 'paycash' );" data-theme="a">PAY CASH</button>
+					<button onclick="changePayment( 'trade' );" data-theme="a">ROLL TO TRADE</button>
+					<button onclick="changePayment( 'down' );" data-theme="a">ROLL TO DOWN</button>
+					<button onclick="changePayment( 'price' );" data-theme="a">ROLL TO PRICE</button>
+				</div>
+			</div>
+			<div id="modalterm" class="sqbox tradeouts">
+				<div data-role="header">
+					<h1>LOAN PERIOD</h1>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div class="fsamodalcontent">
+						<h3 class="ui-title">Change my loan term to</h3>
+						<div id="temptermtd">
+						</div>
+					</div>
+					<button onclick="changeTerm();" data-theme="a">SUBMIT</button>
+				</div>
+			</div>
+			<div id="modalrate" class="sqbox tradeouts">
+				<div data-role="header">
+					<h1>A.P.R.</h1>
+				</div>
+				<div data-role="main" class="ui-content">
+					<div class="fsamodalcontent">
+						<h3 class="ui-title">Change my A.P.R. to</h3>
+						<input type="number" id="temprate" class="numbersonlywithdec"/>
+					</div>
+					<button onclick="changeRate();" data-theme="a">SUBMIT</button>
+				</div>
+			</div>
+			<div id="tradebox" class="sqbox tradeouts" onclick="gettrade();">
+				<div class="sqdetails">
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tr>
+							<td>
+								Payoff:
+							</td>
+							<th class="pencil-field currency balance-field" id="tradepayoff">
+								0
+							</th>
+							<td>
+								<a href="javascript://" onclick="gettrade();">
+									<div class="pencilicon"></div>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="sqtitle"><div>VEHICLE TRADE-IN</div></div>
+				<div class="sqdollars pencil-field currency balance-field" id="tradeasking">0</div>
+				<div class="sqcontent">
+					<table id="tradedetails" cellspacing="0">
+						<tr>
+							<th>
+								Type:
+							</th>
+							<td class=" pencil-field" id="tradetype">
+								
+							</td>
+							<th>
+								Mileage:
+							</th>
+							<td class=" pencil-field" id="trademileage">
+								
+							</td>
+						</tr>
+						<tr>
+							<th>
+								Year:
+							</th>
+							<td class=" pencil-field" id="tradeyear">
+								
+							</td>
+							<th>
+								Condition:
+							</th>
+							<td class=" pencil-field" id="tradecondition">
+								
+							</td>
+						</tr>
+						<tr>
+							<th>
+								Make:
+							</th>
+							<td class=" pencil-field" id="trademake">
+								
+							</td>
+							<th>
+								Payment:
+							</th>
+							<td class=" pencil-field currency" id="tradepayment">
+								0
+							</td>
+						</tr>
+						<tr>
+							<th>
+								Model:
+							</th>
+							<td class=" pencil-field" id="trademodel">
+								
+							</td>
+							<th>
+								Bank:
+							</th>
+							<td class=" pencil-field" id="tradebank">
+								
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="modaltrade" class="sqbox tradeouts">
+				<div class="sqtitle"><div>VEHICLE TRADE-IN</div></div>
+				<div class="innertemptrade">
+					<table width="100%">
+						<tr>
+							<td>
+								<select id="temptradetype" onmousedown="$( this ).val( '' );" onmouseup="bookit( this.value );" data-theme="a">
+									<option value="">Choose...</option>
+									<option value="AUTO">Automobile</option>
+									<option value="RV">Recreational Vehicle</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="temptradeasking" class="numbersonly" placeholder="Value" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="temptradeyear" class="numbersonly" placeholder="Year" >
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="temptrademake" placeholder="Make" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="temptrademodel" placeholder="Model" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="temptradepayoff" class="numbersonly" placeholder="Payoff" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="temptradepayment" class="numbersonly" placeholder="Payment" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="temptrademileage" class="numbersonly" placeholder="Mileage" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="temptradecondition" placeholder="Condition" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="temptradebank" placeholder="Bank" />
+							</td>
+						</tr>
+					</table>
+					<br />
+					<button onclick="changeTradebox();" data-theme="a">SUBMIT</button>
+					<br />
+				</div>
+			</div>
+			<div id="pricebox" class="sqbox tradeouts" onclick="getprice();">
+				<div class="sqdetails">
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tr>
+							<td style="white-space: normal; width: 100%">
+								
+							</td>
+							<th>&nbsp;
+								
+							</th>
+							<td style="vertical-align: middle; text-align: right;">
+								<a href="javascript://" onclick="getprice();">
+									<div class="pencilicon"></div>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="sqtitle"><div>VEHICLE PRICE</div></div>
+				<div class="sqdollars pencil-field currency balance-field" id="price">0</div>
+				<div class="scratched"></div>
+			</div>
+			<div id="downbox" class="sqbox tradeouts" onclick="getdown();">
+				<div class="sqdetails">
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tr>
+							<td style="white-space: normal; width: 100%">
+								Payment includes estimated tax, title, license, and fees
+							</td>
+							<th>&nbsp;
+								
+							</th>
+							<td>
+								<a href="javascript://" onclick="getdown();">
+									<div class="pencilicon"></div>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="sqtitle"><div>DOWN PAYMENT</div></div>
+				<div class="sqdollars pencil-field currency balance-field" id="down">0</div>
+				<div class="scratched"></div>
+			</div>
+			<div id="paymentbox" class="sqbox tradeouts" onclick="getpayment();">
+				<div class="sqdetails">
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+						<tr>
+							<td>
+								<a href="javascript://" onclick="getrate();">A.P.R.:</a>
+							</td>
+							<th class="pencil-field" id="rate">
+								5.00%
+							</th>
+							<td rowspan="2" style="vertical-align: middle;">
+								<a href="javascript://" onclick="getpayment();">
+									<div class="pencilicon"></div>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="javascript://" onclick="getterm();">Loan Period:</a>
+							</td>
+							<th class="pencil-field balance-field" id="term">
+								60 months
+							</th>
+						</tr>
+					</table>
+				</div>
+				<div class="sqclickable">
+					<div class="sqtitle"><div>MONTHLY PAYMENT</div></div>
+					<div class="sqdollars pencil-field currency balance-field" id="payment">0</div>
+					<div class="scratched"></div>
+				</div>
+			</div>
+		</div>
+		<div id="footer" data-role="footer">
+			<table id="mini4sq" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td onclick="tradeouts( 'tradebox' );" style="border-bottom: 1px solid #232323; border-right: 1px solid #232323;">
+						<div class="title">
+							TRADE-IN
+						</div>
+						<div id="minitradeasking" class="minivalue">0</div>
+					</td>
+					<td onclick="tradeouts( 'pricebox' );" style="border-bottom: 1px solid #232323;">
+						<div class="title">
+							VEHICLE PRICE
+						</div>
+						<div id="miniprice" class="minivalue">0</div>
+					</td>
+				</tr>
+				<tr>
+					<td onclick="tradeouts( 'downbox' );" style="border-right: 1px solid #232323;">
+						<div class="title">
+							DOWN PAYMENT
+						</div>
+						<div id="minidown" class="minivalue">0</div>
+					</td>
+					<td onclick="tradeouts( 'paymentbox' );">
+						<div class="title">
+							MONTHLY PAYMENT
+						</div>
+						<div id="minipayment" class="minivalue">0</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
